@@ -1,0 +1,8 @@
+rules:
+    - PhpStan\Rules\Complexity\FunctionLengthRule:
+        maxLines: 50
+    - PhpStan\Rules\Complexity\NestingLevelRule:
+        maxNestingLevel: 5
+parameters:
+    paths:
+        - a/
