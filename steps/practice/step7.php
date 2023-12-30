@@ -9,7 +9,7 @@ $options = [
     },
 ];     
 
-$parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7, $options);
+$parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
 // 创建一个解析器实例
 
 

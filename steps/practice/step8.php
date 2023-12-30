@@ -23,10 +23,11 @@ class MyNodeVisitor extends NodeVisitorAbstract
             // 提取函数定义的名称
             $functionName = $node->name->toString();
             echo "Function definition: $functionName\n";
-        }elseif ($node instanceof PhpParser\Node\Stmt\Declare_){
+        }else if ($node instanceof PhpParser\Node\Stmt\Declare_){
             var_dump('有declares声明严格语句语句');
             var_dump($node->declares[0]->key->name=='strict_types');
             var_dump($node->declares[0]->value->value===1);
+//            var_dump($node);
         }
     }
 }
