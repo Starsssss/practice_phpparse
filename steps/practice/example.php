@@ -24,3 +24,11 @@ $z = $x + $y;
 echo $z;
 
 die(222);
+
+class A{
+    public function ss(string $p1) : array {
+        echo 'xxx';
+        var_dump(22323);
+        return [777];
+    }
+}
