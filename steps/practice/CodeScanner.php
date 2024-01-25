@@ -86,20 +86,30 @@ class PrintStatementVisitor extends NodeVisitorAbstract
 
     public function enterNode(Node $node)
     {
+        // 假设在同一作用域中定义了相应的类映射常量
+        define("IS_PRINT_R", 'print_r');
+        define("IS_VAR_DUMP", 'var_dump');
+        define("IS_DIE", 'die');
+
+        // 假设 $node 类型已定义
         if (
             $node instanceof Node\Stmt\Echo_
-            || $node instanceof Node\Expr\FuncCall &&
-            ($node->name->toString() === 'print_r'
-                || $node->name->toString() === 'var_dump')
+            || (
+                $node instanceof Node\Expr\FuncCall
+                && (!$node->name instanceof PhpParser\Node\Expr\Variable)
+                && (
+                    $node->name->toString() === IS_PRINT_R
+                    || $node->name->toString() === IS_VAR_DUMP
+                    || $node->name->toString() === IS_DIE
+                )
+            )
             || $node instanceof Node\Expr\Exit_
-            || ($node instanceof Node\Expr\FuncCall && $node->name->toString() === 'die')
         ) {
             echo "Found print or output statement in {$this->filePath}:{$node->getLine()}\n";
-            // var_dump("$this->filePath:".$node->getLine());
-            echo "Line: " . $node->getLine() . "\n";
-            echo "Comment: " . $this->getComment($node) . "\n";
-            echo "Code snippet:" . $this->getCodeSnippet($node) . "\n";
-            echo "------------------------------------\n";
+            // echo "Line: " . $node->getLine() . "\n";
+            // echo "Comment: " . $this->getComment($node) . "\n";
+            // echo "Code snippet:" . $this->getCodeSnippet($node) . "\n";
+            // echo "------------------------------------\n";
         }
     }
 
@@ -132,7 +142,7 @@ class PrintStatementVisitor extends NodeVisitorAbstract
 }
 
 try {
-    (new CodeScanner())->scanCode(__FILE__);
+    (new CodeScanner())->scanCode("D:\ximu\admin-api\app");
 } catch (\Throwable $e) {
     var_dump($e);
 }
